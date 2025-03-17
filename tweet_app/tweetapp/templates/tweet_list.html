@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tweet App
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Welcome to Tweet App</h1>
+    
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary btn-lg shadow-sm mb-4" href="{% url 'tweet_create' %}">
+            <i class="bi bi-plus-circle"></i> Create a Tweet
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for tweet in tweets %}
+        <div class="col">
+            <div class="card shadow-sm border-0 h-100">
+                {% if tweet.photo %}
+                    <img src="{{ tweet.photo.url }}" class="card-img-top rounded-top" alt="Tweet Image">
+                {% else %}
+                    <div class="text-center p-3 bg-light text-muted">No Image Available</div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        <i class="bi bi-person-circle"></i> {{ tweet.user.username }}
+                    </h5>
+                    <p class="card-text text-muted">{{ tweet.text }}</p>
+                </div>
+                <div class="card-footer bg-dark border-top-0">
+                    <div class="btn-group w-100">
+                        {% if tweet.user == user  %}
+                        <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                        <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-outline-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col text-center">
+            <p class="text-muted">No tweets available. Be the first to post!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

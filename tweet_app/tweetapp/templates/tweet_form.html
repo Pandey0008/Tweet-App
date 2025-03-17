@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tweet App
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Welcome to Tweet App</h1>
+    
+    <div class="card shadow-sm border-0 p-4">
+        <h2 class="text-center text-primary">
+            {% if form.instance.pk %}
+                Edit Tweet
+            {% else %} 
+                Create Tweet 
+            {% endif %}
+        </h2>
+        
+        <form method="post" enctype="multipart/form-data" class="mt-4">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger small">{{ field.errors|first }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button class="btn btn-warning w-100" type="submit">
+             Submit
+            </button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'tweet_list' %}" class="btn btn-outline-secondary ">
+                🔙 Back to Tweet List
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
