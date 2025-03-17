@@ -19,8 +19,7 @@ Tweet App
         <div class="col">
             <div class="card shadow-sm border-0 h-100">
                 {% if tweet.photo %}
-                <img src="{{ tweet.photo.url }}" class="card-img-top rounded-top img-fluid" style="height: 200px; object-fit: cover;" alt="Tweet Image">
-
+                    <img src="{{ tweet.photo.url }}" class="card-img-top rounded-top" alt="Tweet Image">
                 {% else %}
                     <div class="text-center p-3 bg-light text-muted">No Image Available</div>
                 {% endif %}
